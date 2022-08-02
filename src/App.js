@@ -1,25 +1,83 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react"
+import styled from "styled-components"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Div = styled.div `
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: solid black 1px;
+  height: 80vh;
+`
+
+const CaixaUl = styled.ul `
+  display: flex;
+`
+
+const Lista = styled.li `
+  list-style: none;
+`
+
+export default class ToDo extends Component {
+  state = {
+    fazeres: "",
+    historico: []
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      fazeres: event.target.value
+    })
+  }  
+
+  limpar = () => {
+    this.setState({
+      fazeres: ""
+    })
+  }
+  
+  // handleKeyPress = (event) => {
+  //   this.setState({
+  //     fazeres: event.key,
+  //   })
+  //   if (this.fazeres === "Enter") {
+  //     console.log("aaaaaa")
+  //   }
+  // }
+
+  handleClick = () => {
+    this.setState({
+      historico: this.state.historico.concat({
+        fazeres: this.state.fazeres,
+      })
+    },
+    this.limpar())
+  }
+
+  // remove = () => {
+  //   this.setState({
+  //     historico: this.state.historico.pop("")
+  //   })
+  // }
+
+
+
+  render(){
+    return(
+      <Div>
+        <h1>To Do List</h1>
+        <input value={this.state.fazeres} onChange={this.handleChange}/>
+        <button onClick={this.handleClick}>Add</button>
+        <button onClick={this.remove}>Remove</button>
+        <div>
+          {this.state.historico.map((item) => (
+            <CaixaUl>
+              <input type="checkbox"></input>
+              <Lista>{item.fazeres}</Lista>
+            </CaixaUl>
+          ))}
+        </div>
+      </Div>
+    )
+  }
 }
-
-export default App;
