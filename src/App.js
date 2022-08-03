@@ -1,22 +1,8 @@
+//Seu ToDo deve ter uma função para remover tarefa
+//Seu ToDo deve adicionar tarefas com o click no button e também com a tecla ENTER
 import React, { Component } from "react"
-import styled from "styled-components"
+import * as S from "./components/style.js"
 
-const Div = styled.div `
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: solid black 1px;
-  height: 80vh;
-`
-
-const CaixaUl = styled.ul `
-  display: flex;
-`
-
-const Lista = styled.li `
-  list-style: none;
-`
 
 export default class ToDo extends Component {
   state = {
@@ -29,12 +15,6 @@ export default class ToDo extends Component {
       fazeres: event.target.value
     })
   }  
-
-  limpar = () => {
-    this.setState({
-      fazeres: ""
-    })
-  }
   
   // handleKeyPress = (event) => {
   //   this.setState({
@@ -49,35 +29,39 @@ export default class ToDo extends Component {
     this.setState({
       historico: this.state.historico.concat({
         fazeres: this.state.fazeres,
-      })
-    },
-    this.limpar())
+        id: Date.now()
+      }),
+      fazeres: ""
+    })
   }
 
-  // remove = () => {
-  //   this.setState({
-  //     historico: this.state.historico.pop("")
-  //   })
-  // }
-
-
+  remove = (id) => {
+    this.setState({
+      historico: this.state.historico.filter((item) => (item.id !== id))
+    })
+  }
 
   render(){
     return(
-      <Div>
-        <h1>To Do List</h1>
-        <input value={this.state.fazeres} onChange={this.handleChange}/>
-        <button onClick={this.handleClick}>Add</button>
-        <button onClick={this.remove}>Remove</button>
-        <div>
-          {this.state.historico.map((item) => (
-            <CaixaUl>
-              <input type="checkbox"></input>
-              <Lista>{item.fazeres}</Lista>
-            </CaixaUl>
-          ))}
-        </div>
-      </Div>
+      <S.Div>
+        <globalStyle/>
+        <S.DivTitulo>
+          <S.Titulo>To Do List</S.Titulo>
+        </S.DivTitulo>
+        <S.inputButton>
+          <S.Escrever value={this.state.fazeres} onChange={this.handleChange}/>
+          <button onClick={this.handleClick}>Add</button>
+        </S.inputButton>        
+        <S.DivMap>
+          <S.Map>{this.state.historico.map((item) => (
+            <S.CaixaUl>
+              <S.Check type="checkbox"></S.Check>
+              <S.Lista>{item.fazeres}</S.Lista>
+              <S.Remove onClick={() => {this.remove(item.id)}}>X</S.Remove>
+            </S.CaixaUl>
+          ))}</S.Map>
+        </S.DivMap>
+      </S.Div>
     )
   }
 }
