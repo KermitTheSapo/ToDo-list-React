@@ -3,7 +3,6 @@
 import React, { Component } from "react"
 import * as S from "./components/style.js"
 
-
 export default class ToDo extends Component {
   state = {
     fazeres: "",
@@ -16,22 +15,21 @@ export default class ToDo extends Component {
     })
   }  
   
-  // handleKeyPress = (event) => {
-  //   this.setState({
-  //     fazeres: event.key,
-  //   })
-  //   if (this.fazeres === "Enter") {
-  //     console.log("aaaaaa")
-  //   }
-  // }
-
   handleClick = () => {
+    if (this.state.fazeres !== "") {
+      this.setState({
+        historico: this.state.historico.concat({
+          fazeres: this.state.fazeres,
+          id: Date.now()
+        }),
+        fazeres: ""
+      })
+    }
+  }
+
+  deleteAll = () => {
     this.setState({
-      historico: this.state.historico.concat({
-        fazeres: this.state.fazeres,
-        id: Date.now()
-      }),
-      fazeres: ""
+      historico: this.state.historico.filter((item) => item.historico)
     })
   }
 
@@ -48,10 +46,13 @@ export default class ToDo extends Component {
         <S.DivTitulo>
           <S.Titulo>To Do List</S.Titulo>
         </S.DivTitulo>
+        <form onSubmit={(e) => e.preventDefault()} action="">
         <S.inputButton>
           <S.Escrever value={this.state.fazeres} onChange={this.handleChange}/>
           <button onClick={this.handleClick}>Add</button>
-        </S.inputButton>        
+          <button onClick={this.deleteAll}>Delete All</button>
+        </S.inputButton>       
+        </form> 
         <S.DivMap>
           <S.Map>{this.state.historico.map((item) => (
             <S.CaixaUl>

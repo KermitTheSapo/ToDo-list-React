@@ -16,11 +16,14 @@ export const inputButton = styled.div`
     button{
         background-color: darkblue;
         border-radius: 5px;
-        height: 45%;
-        width: 10%;
+        height: 5vh;
+        width: 5vw;
         color: white;
+        cursor: pointer;
     }
 `
+
+// text-decoration: line-through;
 
 export const Titulo = styled.h1`
     font-size: 50px;
@@ -79,8 +82,8 @@ export const Check = styled.input`
 
 export const Escrever = styled.input`
     border-radius: 5px;
-    width:80%;
-    height: 45%;
+    width:8vw;
+    height: 4vh;
     text-align:center;
     font-size: 25px;
 `
@@ -89,7 +92,7 @@ export const Map = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     height: 100%;
     width: 100%;
 `
