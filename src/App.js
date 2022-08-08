@@ -1,5 +1,3 @@
-//Seu ToDo deve ter uma função para remover tarefa
-//Seu ToDo deve adicionar tarefas com o click no button e também com a tecla ENTER
 import React, { Component } from "react"
 import * as S from "./components/style.js"
 
@@ -42,17 +40,19 @@ export default class ToDo extends Component {
   render(){
     return(
       <S.Div>
-        <globalStyle/>
+        <S.globalStyle/>
         <S.DivTitulo>
           <S.Titulo>To Do List</S.Titulo>
         </S.DivTitulo>
-        <form onSubmit={(e) => e.preventDefault()} action="">
-        <S.inputButton>
-          <S.Escrever value={this.state.fazeres} onChange={this.handleChange}/>
-          <button onClick={this.handleClick}>Add</button>
-          <button onClick={this.deleteAll}>Delete All</button>
-        </S.inputButton>       
-        </form> 
+        <S.Form onSubmit={(e) => e.preventDefault()} action="">
+          <S.inputButton>
+            <S.EnglobaInput>
+              <S.Escrever value={this.state.fazeres} onChange={this.handleChange}/>
+            </S.EnglobaInput>
+            <S.Adicionar onClick={this.handleClick}>Add</S.Adicionar>
+            <S.Delete onClick={this.deleteAll}>Delete All</S.Delete>
+          </S.inputButton>       
+        </S.Form> 
         <S.DivMap>
           <S.Map>{this.state.historico.map((item) => (
             <S.CaixaUl>
